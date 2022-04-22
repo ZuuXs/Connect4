@@ -44,6 +44,7 @@ public class P4 {
             for (int i=row-1;i>=0;i--){
                 if (table[i][column-1]==0){
                     table[i][column-1]=player.turn;
+                    break;
                 }
             }
             return true;
