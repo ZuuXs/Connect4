@@ -21,6 +21,7 @@ public class P4 {
             System.out.print("["+table[i][table[i].length-1] +"]"); 
             System.out.println();
         }
+        System.out.println();
         return("Player 1 is "+p1.name+" with "+p1.colour+" colour."+'\n'+"Player 2 is "+p2.name+" with "+p2.colour+" colour.");
     }
 
@@ -186,7 +187,7 @@ public class P4 {
 
             while(iTemp>3-accumelator && j<col-1){
                 
-                if (table[i][j]!=0 && table[iTemp][j]==table[iTemp-1][j+1]){
+                if (table[iTemp][j]!=0 && table[iTemp][j]==table[iTemp-1][j+1]){
                     accumelator++;
                 }else{
                     accumelator=1;
@@ -210,7 +211,7 @@ public class P4 {
 
             while(row-iTemp>3-accumelator && j>0){
                 
-                if (table[i][j]!=0 && table[j][iTemp]==table[j-1][iTemp+1]){
+                if (table[j][iTemp]!=0 && table[j][iTemp]==table[j-1][iTemp+1]){
                     accumelator++;
                 }else{
                     accumelator=1;
@@ -230,16 +231,13 @@ public class P4 {
     public int verify(){
         
         if (this.horizontal()!=0){
-            System.out.println("The winner is the player "+this.horizontal()+".");
             return this.horizontal();
         } 
         if (this.vertical()!=0){
-            System.out.println("The winner is the player "+this.vertical()+".");
             return this.vertical();
         }
         
         if (this.diag()!=0){
-            System.out.println("The winner is the player "+this.diag()+".");
             return this.diag();
         }
         return 0;

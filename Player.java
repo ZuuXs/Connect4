@@ -5,22 +5,26 @@ public class Player {
         this.name=name;
         this.id=id;
         this.wins=0;
+        this.colour="White";
+        this.turn=0;
+    }
+    
+    public String toString() {
+        return "Player [ id=" + id + ", name=" + name + "]";
+    }
 
-        if(id%2==1){
+    public void won(){
+        this.wins++;
+    }
+
+    public void giveturn(int n){
+        if(n==1){
             this.colour="Red";
             this.turn=1;
         }else{
             this.colour="Yellow";
             this.turn=2;
         }
-    }
-    
-    public String toString() {
-        return "Player [colour=" + colour + ", id=" + id + ", name=" + name + ", turn=" + turn + "]";
-    }
-
-    public void won(){
-        this.wins++;
     }
     
 }

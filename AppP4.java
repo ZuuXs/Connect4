@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class AppP4 {
-    public static void main (String[] args){
+    public static void main (String[] args) throws InterruptedException{
         Scanner scanner = new Scanner( System.in );  
         int playerCount=0;
 
@@ -58,25 +58,92 @@ public class AppP4 {
                     opp=scanner.nextInt();
                 }
 
-                if(opp>0 && opp<=playerCount){
+                if(opp>=0 && opp<=playerCount){
                     
                     for(int i=0;i<playerCount-1;i+=2){
+                        Thread.sleep(1000);
+                        System.out.println();
+                        System.out.println("                       GAME "+(i+2)/2+"                       ");
+                        System.out.println();
+                        System.out.println("The players of this match will be: "+listOfPlayers[i].name+" VS "+listOfPlayers[i+1].name);
                         Game game= new Game();
                         game.launch(row,col,listOfPlayers[i],listOfPlayers[i+1]);
+                        System.out.println();
+                        System.out.println();
+                        System.out.print(".");
+                        Thread.sleep(500);
+                        System.out.print(".");
+                        Thread.sleep(500);
+                        System.out.print(".");
+                        Thread.sleep(500);
+                        System.out.print("LOOKING FOR THE NEXT GAME!");
+                        Thread.sleep(1000);
                     }
 
-                    Game lastgame=new Game();
-                    lastgame.launch(row,col,listOfPlayers[playerCount-1],listOfPlayers[opp-1]);
+                    Thread.sleep(1000);
+                    System.out.println();
+                    System.out.println("                       GAME "+(playerCount+1)/2+"                       ");
+                    System.out.println();
 
-                }else if(opp==0){
-                    Game game=new Game();
-                    game.launch1P(row,col,listOfPlayers[playerCount-1]);
+                    if(opp>0){
+
+                        System.out.println("The players of this match will be: "+listOfPlayers[playerCount-1].name+" VS "+listOfPlayers[opp-1].name);
+                        
+                        Game lastgame=new Game();
+                        lastgame.launch(row,col,listOfPlayers[playerCount-1],listOfPlayers[opp-1]);
+    
+                        System.out.println();
+                        System.out.println();
+                        System.out.print(".");
+                        Thread.sleep(500);
+                        System.out.print(".");
+                        Thread.sleep(500);
+                        System.out.print(".");
+                        Thread.sleep(500);
+                        System.out.print("LOOKING FOR THE NEXT GAME!");
+                        Thread.sleep(1000);
+                        System.out.println();
+                        System.out.println();
+                        System.out.println("No more games found.");
+                        System.out.println();
+                        System.out.println("THANK YOU FOR YOUR PARTICIPATION!");
+                        System.out.println();    
+
+                    }if(opp==0){
+                        System.out.println("The players of this match will be: "+listOfPlayers[playerCount-1].name+" VS CPU.");
+                        Game game=new Game();
+                        game.launch1P(row,col,listOfPlayers[playerCount-1]);
+                        game.lookForNewGame();
+                        game.matchEnd();
+                    }
                 }
             }else{
                 for(int i=0;i<playerCount;i+=2){
+                    Thread.sleep(1000);
+                    System.out.println();
+                    System.out.println("                       GAME "+(i+2)/2+"                       ");
+                    System.out.println();
+                    System.out.println("The players of this match will be: "+listOfPlayers[i].name+" VS "+listOfPlayers[i+1].name);
                     Game game= new Game();
                     game.launch(row,col,listOfPlayers[i],listOfPlayers[i+1]);
+                    System.out.println();
+                    System.out.println();
+                    System.out.print(".");
+                    Thread.sleep(500);
+                    System.out.print(".");
+                    Thread.sleep(500);
+                    System.out.print(".");
+                    Thread.sleep(500);
+                    System.out.print("LOOKING FOR THE NEXT GAME!");
+                    Thread.sleep(1000);
                 }
+                System.out.println();
+                System.out.println();
+                System.out.println("No more games found.");
+                System.out.println();
+                System.out.println("THANK YOU FOR YOUR PARTICIPATION!");
+                System.out.println();
+
             }
         }else{
             System.out.print("Enter the name of the player: ");
