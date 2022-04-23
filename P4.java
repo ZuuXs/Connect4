@@ -56,15 +56,10 @@ public class P4 {
         int accumelator=1;
         int winner=0;
         for(int i=0;i<row;i++){
-
-            if(winner!=0){
-                break;
-            }
-
             for (int j=0;j<table[i].length-1;j++){
-                // [optimisation] if columns are greater than 3 then it is possible to find a horizontal combination,
-                // otherwise it is impossible;
-                if(col>3){
+                // [optimisation] if the remaining cells to check are greater than the remaining combinations to reach 4,
+                // then it is still possible to find a combination, otherwise there is no chance to find a winner in this line. We jump to the next line. 
+                if(col-j>4-accumelator){
                     // if the cell is not empty and contains the same colour as the next cell horizontally then we increment, 
                     // else we reset the accumelator. 
                     if(table[i][j]!=0 && table[i][j]==table[i][j+1]){
@@ -73,11 +68,6 @@ public class P4 {
                         if (accumelator==4){
                             winner=table[i][j];
                             return winner;
-                        }
-                        // [optimisation] if the remaining cells are less than the remaining combinations to reach 4
-                        // we jump to the next line because there is no chance to find a winner in this one. 
-                        if(table[i].length-j<4-accumelator){
-                            break;
                         }
                     }else{
                         accumelator=1;
@@ -94,10 +84,9 @@ public class P4 {
 
         for(int i=0;i<col;i++){
             for (int j=row-1;j>0;j--){
-                
-                // [optimisation] if the remaining rows to check are greater than the rest of the accumelator to reach 4
-                // then it is possible to find a vertical combination, otherwise it is impossible;
-                if(j>=4-accumelator){
+                // [optimisation] if the remaining cells to check are greater than the remaining combinations to reach 4,
+                // then it is still possible to find a combination, otherwise there is no chance to find a winner in this column, we jump to the next one. 
+                if(j+1>4-accumelator){
  
                     // [optimisation] if cell is empty then all the rest above are, we skip this column, no chance of a combination...
                     if(table[j][i]==0){
@@ -126,10 +115,14 @@ public class P4 {
     }
 
     public int diag(){
+        /*
+        This function do 4 loops over a table to find all the diagonals possible, in this directory you can find a picture
+        that explains what do each loop so you dont get confused.
+        */
+
+
         int winner=0;
         int accumelator=1;
-
-            
 
         // loop 1 i++ j++
         for(int i=0;i<row-3;i++){
@@ -137,7 +130,9 @@ public class P4 {
             int j=0;
             int iTemp=i;
 
-            while(min(row-iTemp,col-j)>4-accumelator && j<col-1){
+            // [optimisation] The remaining cells to check > the remaining combinations to reach 4 
+            while(min(row-iTemp,col-j)>4-accumelator && j<col-1 && iTemp<row-1){
+ 
                 if (table[iTemp][j]!=0 && table[iTemp][j]==table[iTemp+1][j+1]){
                     accumelator++;
                 }else{
@@ -160,7 +155,9 @@ public class P4 {
             accumelator=1;
             int j=0;
             int iTemp=i;
-            while(min(col-iTemp,row-j)>4-accumelator && j<row-1){
+
+            // [optimisation] The remaining cells to check > the remaining combinations to reach 4 
+            while(min(col-iTemp,row-j)>4-accumelator && j<row-1 && iTemp<col-1){
                 
                 if (table[j][iTemp]!=0 && table[j][iTemp]==table[j+1][iTemp+1]){
                     accumelator++;
@@ -184,7 +181,8 @@ public class P4 {
             int j=0;
             int iTemp=i;
 
-            while(min(iTemp+1,col-j)>4-accumelator && j<col-1){
+            // [optimisation] The remaining cells to check > the remaining combinations to reach 4 
+            while(min(iTemp+1,col-j)>4-accumelator && j<col-1 && iTemp>0){
                 
                 if (table[iTemp][j]!=0 && table[iTemp][j]==table[iTemp-1][j+1]){
                     accumelator++;
@@ -208,7 +206,8 @@ public class P4 {
             int j=row-1;
             int iTemp=i;
 
-            while(min(j+1,col-iTemp)>4-accumelator && j>0){
+            // [optimisation] The remaining cells to check > the remaining combinations to reach 4 
+            while(min(j+1,col-iTemp)>4-accumelator && j>0 && iTemp<col-1){
                 
                 if (table[j][iTemp]!=0 && table[j][iTemp]==table[j-1][iTemp+1]){
                     accumelator++;
@@ -227,6 +226,11 @@ public class P4 {
     }
 
     public int min(int a, int b){
+        
+        /*
+        Find the minimum between 2 integers
+        */
+
         if (a>b){
             return a;
         }else{
@@ -236,7 +240,8 @@ public class P4 {
     }
 
     public int verify(){
-        
+        //verifying all possibilities
+
         if (this.horizontal()!=0){
             return this.horizontal();
         } 

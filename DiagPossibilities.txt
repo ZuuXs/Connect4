@@ -1,4 +1,0 @@
-int possibilities=((row-4)*2)+((col-4)*2)+2;
-2(row-4+col-4+1)
-2(row+col-7)
-2(row+col)-14
