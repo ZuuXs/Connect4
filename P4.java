@@ -137,7 +137,7 @@ public class P4 {
             int j=0;
             int iTemp=i;
 
-            while(col-iTemp>4-accumelator && j<col-1){
+            while(min(row-iTemp,col-j)>4-accumelator && j<col-1){
                 if (table[iTemp][j]!=0 && table[iTemp][j]==table[iTemp+1][j+1]){
                     accumelator++;
                 }else{
@@ -160,8 +160,7 @@ public class P4 {
             accumelator=1;
             int j=0;
             int iTemp=i;
-            System.out.println("loop2");
-            while(row-i-j>3-accumelator && j<col-1){
+            while(min(col-iTemp,row-j)>4-accumelator && j<row-1){
                 
                 if (table[j][iTemp]!=0 && table[j][iTemp]==table[j+1][iTemp+1]){
                     accumelator++;
@@ -185,7 +184,7 @@ public class P4 {
             int j=0;
             int iTemp=i;
 
-            while(iTemp>3-accumelator && j<col-1){
+            while(min(iTemp+1,col-j)>4-accumelator && j<col-1){
                 
                 if (table[iTemp][j]!=0 && table[iTemp][j]==table[iTemp-1][j+1]){
                     accumelator++;
@@ -209,7 +208,7 @@ public class P4 {
             int j=row-1;
             int iTemp=i;
 
-            while(row-iTemp>3-accumelator && j>0){
+            while(min(j+1,col-iTemp)>4-accumelator && j>0){
                 
                 if (table[j][iTemp]!=0 && table[j][iTemp]==table[j-1][iTemp+1]){
                     accumelator++;
@@ -227,6 +226,14 @@ public class P4 {
         return winner;
     }
 
+    public int min(int a, int b){
+        if (a>b){
+            return a;
+        }else{
+            return b;
+        }
+
+    }
 
     public int verify(){
         
