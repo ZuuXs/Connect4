@@ -9,8 +9,19 @@ public class test {
         game.tryPlay(1, p1);
         game.tryPlay(1, p1);
         game.tryPlay(1, p1);
+        game.tryPlay(2, p1);
+        game.tryPlay(2, p1);
+        game.tryPlay(2, p1);
+        game.tryPlay(3, p1);
+        
+        game.tryPlay(4, p1);
+        
+        
+        
+        
+        
         System.out.println(game);
-        System.out.println(game.vertical());
+        System.out.println(game.diag());
     }
 }
 

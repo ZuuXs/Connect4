@@ -93,27 +93,31 @@ public class P4 {
 
         for(int i=0;i<col;i++){
             for (int j=row-1;j>0;j--){
-                // [optimisation] if rows are greater than 3 then it is possible to find a vertical combination,
-                // otherwise it is impossible;
-                if(row>3){
-                    
+                
+                // [optimisation] if the remaining rows to check are greater than the rest of the accumelator to reach 4
+                // then it is possible to find a vertical combination, otherwise it is impossible;
+                if(j>=4-accumelator){
+ 
                     // [optimisation] if cell is empty then all the rest above are, we skip this column, no chance of a combination...
                     if(table[j][i]==0){
                         break;
                     }
 
+        
                     // if the cell isn t empty and contains the same colour as the next cell vertically then we increment, else we reset the accumelator.
-                    if(table[i][j]!=0 && table[j][i]==table[j-1][i]){
+                    if(table[j][i]!=0 && table[j][i]==table[j-1][i]){
                         accumelator++;
                     }else{
                         accumelator=1;
                     }
 
-                        // if the accumelator find 4 combination of one player then he is the winner. 
+                    // if the accumelator find 4 combination of one player then he is the winner. 
                     if (accumelator==4){
                         winner=table[j][i];
                         return winner;
                     }
+                }else{
+                    break;
                 }
             }
         }
@@ -124,115 +128,100 @@ public class P4 {
         int winner=0;
         int accumelator=1;
 
-        if(col>3 && row>3){
             
 
-            // loop 1 i++ j++
-            for(int i=0;i<row-3;i++){
-                accumelator=1;
-                int j=0;
-                int iTemp=i;
-
-                while(col-iTemp>4-accumelator && j<col-1){
-
-                    if (table[i][j]!=0 && table[iTemp][j]==table[iTemp+1][j+1]){
-                        accumelator++;
-                    }else{
-                        accumelator=1;
-                    }
-                    if (accumelator==4){
-                        winner=table[iTemp][j];
-                        return winner;
-                    }
-                    iTemp++;
-                    j++;
-                }
-            }
-            
-            
+        // loop 1 i++ j++
+        for(int i=0;i<row-3;i++){
             accumelator=1;
-            
+            int j=0;
+            int iTemp=i;
 
-
-
-            // loop 2 j++ i++
-            for(int i=1;i<col-3;i++){
-                accumelator=1;
-                int j=0;
-                int iTemp=i;
-
-                while(row-i-j>3-accumelator && j<col-1){
-
-                    if (table[i][j]!=0 && table[j][iTemp]==table[j+1][iTemp+1]){
-                        accumelator++;
-                    }else{
-                        accumelator=1;
-                    }
-                    if (accumelator==4){
-                        winner=table[j][iTemp];
-                        return winner;
-                    }
-                    iTemp++;
-                    j++;
+            while(col-iTemp>4-accumelator && j<col-1){
+                if (table[iTemp][j]!=0 && table[iTemp][j]==table[iTemp+1][j+1]){
+                    accumelator++;
+                }else{
+                    accumelator=1;
                 }
+                if (accumelator==4){
+                    winner=table[iTemp][j];
+                    return winner;
+                }
+                iTemp++;
+                j++;
             }
+        }
+                
+        accumelator=1;
             
-            
+
+        // loop 2 j++ i++
+        for(int i=1;i<col-3;i++){
             accumelator=1;
-
-
-            
-            // loop 3 i-- j++
-            for(int i=row-1;i>2;i--){
-                accumelator=1;
-                int j=0;
-                int iTemp=i;
-
-                while(iTemp>3-accumelator && j<col-1){
-
-                    if (table[i][j]!=0 && table[iTemp][j]==table[iTemp-1][j+1]){
-                        accumelator++;
-                    }else{
-                        accumelator=1;
-                    }
-                    if (accumelator==4){
-                        winner=table[iTemp][j];
-                        return winner;
-                    }
-                    iTemp--;
-                    j++;
+            int j=0;
+            int iTemp=i;
+            System.out.println("loop2");
+            while(row-i-j>3-accumelator && j<col-1){
+                
+                if (table[j][iTemp]!=0 && table[j][iTemp]==table[j+1][iTemp+1]){
+                    accumelator++;
+                }else{
+                    accumelator=1;
                 }
+                if (accumelator==4){
+                    winner=table[j][iTemp];
+                    return winner;
+                }
+                iTemp++;
+                j++;
             }
-
+        }
+                
+        accumelator=1;
+    
+        // loop 3 i-- j++
+        for(int i=row-1;i>2;i--){
             accumelator=1;
+            int j=0;
+            int iTemp=i;
 
-
-
-            // loop 4 j++ i--
-            for(int i=1;i<col-3;i++){
-                accumelator=1;
-                int j=row-1;
-                int iTemp=i;
-
-                while(row-iTemp>3-accumelator && j>0){
-
-                    if (table[i][j]!=0 && table[j][iTemp]==table[j-1][iTemp+1]){
-                        accumelator++;
-                    }else{
-                        accumelator=1;
-                    }
-
-                    if (accumelator==4){
-                        winner=table[j][iTemp];
-                        return winner;
-                    }
-                    iTemp++;
-                    j--;
+            while(iTemp>3-accumelator && j<col-1){
+                
+                if (table[i][j]!=0 && table[iTemp][j]==table[iTemp-1][j+1]){
+                    accumelator++;
+                }else{
+                    accumelator=1;
                 }
+                if (accumelator==4){
+                    winner=table[iTemp][j];
+                    return winner;
+                }
+                iTemp--;
+                j++;
             }
+        }
 
+        accumelator=1;
 
+        // loop 4 j++ i--
+        for(int i=1;i<col-3;i++){
+            accumelator=1;
+            int j=row-1;
+            int iTemp=i;
 
+            while(row-iTemp>3-accumelator && j>0){
+                
+                if (table[i][j]!=0 && table[j][iTemp]==table[j-1][iTemp+1]){
+                    accumelator++;
+                }else{
+                    accumelator=1;
+                }
+                if (accumelator==4){
+                    winner=table[j][iTemp];
+                    return winner;
+                }
+                iTemp++;
+                j--;
+            }
         }
         return winner;
     }
