@@ -26,5 +26,4 @@ public class Player {
             this.turn=2;
         }
     }
-    
 }
